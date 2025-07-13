@@ -13,6 +13,20 @@
       padding: 0;
       direction: rtl;
     }
+    nav {
+      background: #022c6f;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ffdd00;
+    }
     header {
       background: #004aad;
       color: white;
@@ -22,32 +36,51 @@
     header h1 {
       margin: 0;
       font-size: 2rem;
-      letter-spacing: 2px;
     }
-    section.services {
+    section {
       max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
+    }
+    .about, .contact, .accessories {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+      text-align: center;
+    }
+    .services {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
     }
-    .service {
+    .service, .item {
       background: white;
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: box-shadow 0.3s ease;
     }
-    .service:hover {
+    .service:hover, .item:hover {
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-    .service h3 {
-      margin-top: 0;
-      color: #004aad;
+    .service img, .item img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
     }
-    .service p {
-      line-height: 1.5;
+    .contact a {
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 12px 25px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+    .contact a:hover {
+      background: #128C7E;
     }
     footer {
       background: #222;
@@ -56,66 +89,254 @@
       padding: 20px;
       margin-top: 40px;
     }
-    .contact {
-      max-width: 900px;
-      margin: 0 auto 40px;
-      padding: 0 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .contact a {
-      display: inline-block;
-      margin: 10px 15px;
-      padding: 12px 25px;
-      background: #25D366; /* WhatsApp green */
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    .contact a:hover {
-      background: #128C7E;
-    }
     @media (max-width: 600px) {
       header h1 {
         font-size: 1.5rem;
+      }
+      nav a {
+        display: block;
+        margin: 10px 0;
       }
     }
   </style>
 </head>
 <body>
 
+<nav>
+  <a href="#about">من نحن</a>
+  <a href="#services">الخدمات</a>
+  <a href="#accessories">أكسسوارات</a>
+  <a href="#contact">اتصل بنا</a>
+</nav>
+
 <header>
   <h1>محمد بوماديان - خدمات احترافية للسيارات</h1>
 </header>
 
-<section class="services">
+<section id="about" class="about">
+  <h2>من نحن</h2>
+  <p>نحن فريق متخصص في العناية بالسيارات بمدينة ماتارو، برشلونة. نقدم خدمات دقيقة وذات جودة عالية للأفراد والشركات، ونهتم بالتفاصيل الصغيرة لنضمن رضا العملاء.</p>
+</section>
+
+<section id="services" class="services">
   <article class="service">
+    <img src="images/interior.jpg" alt="تنظيف داخلي" />
     <h3>تنظيف داخلي وخارجي</h3>
-    <p>تنظيف شامل ومتكامل لجميع أجزاء السيارة، مع التركيز على التفاصيل لإعادة سيارتك إلى أفضل حال.</p>
+    <p>تنظيف شامل ومتكامل لجميع أجزاء السيارة، مع تركيز على التفاصيل لإعادة رونقها.</p>
   </article>
   <article class="service">
+    <img src="images/headlight.jpg" alt="تلميع المصابيح" />
     <h3>تلميع المصابيح</h3>
-    <p>استرجاع وضوح المصابيح الأمامية وإزالة الاصفرار لتحسين الرؤية والمظهر.</p>
+    <p>إزالة الاصفرار واسترجاع وضوح المصابيح لتحسين الرؤية والمظهر العام.</p>
   </article>
   <article class="service">
+    <img src="images/scratch.jpg" alt="إزالة الخدوش" />
     <h3>إزالة الخدوش</h3>
-    <p>إزالة الخدوش السطحية لتجديد مظهر السيارة بدون الحاجة لدهان كامل.</p>
+    <p>إزالة الخدوش السطحية لتجديد مظهر السيارة بدون الحاجة إلى دهان كامل.</p>
   </article>
   <article class="service">
+    <img src="images/accessories.jpg" alt="إزالة القطران والإسفلت" />
     <h3>إزالة القطران والإسفلت</h3>
-    <p>تنظيف فعال لإزالة القطران والبقع العنيدة من هيكل السيارة للحفاظ على طلاء السيارة.</p>
+    <p>تنظيف فعال لإزالة القطران والبقع العنيدة من هيكل السيارة للحفاظ على الطلاء الأصلي.</p>
   </article>
 </section>
 
-<section class="contact">
+<section id="accessories" class="accessories">
+  <h2>🧰 أكسسوارات سيارات ثلاثية الأبعاد</h2>
+  <div class="services">
+    <div class="item">
+      <img src="images/accessory-3d-1.jpg" alt="حامل هاتف 3D" />
+      <p>حامل هاتف مصمم بالطباعة ثلاثية الأبعاد لتثبيت آمن أثناء القيادة.</p>
+    </div>
+    <div class="item">
+      <img src="images/accessory-3d-2.jpg" alt="منظم أكواب 3D" />
+      <p>منظم للأكواب والمساحة الداخلية، تصميم عملي وأنيق يتناسب مع جميع السيارات.</p>
+    </div>
+    <div class="item">
+      <img src="images/accessory-3d-3.jpg" alt="مساعد تثبيت الحقائب" />
+      <p>أداة صغيرة تمنع تحرك الأكياس داخل السيارة وتحافظ على النظام.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
   <h2>تواصل معنا</h2>
-  <a href="https://wa.me/34XXXXXXXXX" target="_blank" rel="noopener">راسلنا على واتساب</a>
-  <p>البريد الإلكتروني: <a href="mailto:mbomadian23@gmail.com">mbomadian23@gmail.com</a></p>
-  <p>الموقع: ماتارو، برشلونة</p>
+  <a href="https://wa.me/34XXXXXXXXX" target="_blank">راسلنا على واتساب</a>
+  <p>📧 البريد الإلكتروني: <a href="mailto:mbomadian23@gmail.com">mbomadian23@gmail.com</a></p>
+  <p>📍 الموقع: ماتارو، برشلونة</p>
+</section>
+
+<footer>
+  <p>© 2025 Mohamed Boumadian Services. جميع الحقوق محفوظة.</p>
+</footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohamed Boumadian Services</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    nav {
+      background: #022c6f;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ffdd00;
+    }
+    header {
+      background: #004aad;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .about, .contact, .accessories {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+      text-align: center;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+    .service, .item {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .service:hover, .item:hover {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .service img, .item img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .contact a {
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 12px 25px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+    .contact a:hover {
+      background: #128C7E;
+    }
+    footer {
+      background: #222;
+      color: #eee;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#about">من نحن</a>
+  <a href="#services">الخدمات</a>
+  <a href="#accessories">أكسسوارات</a>
+  <a href="#contact">اتصل بنا</a>
+</nav>
+
+<header>
+  <h1>محمد بوماديان - خدمات احترافية للسيارات</h1>
+</header>
+
+<section id="about" class="about">
+  <h2>من نحن</h2>
+  <p>نحن فريق متخصص في العناية بالسيارات بمدينة ماتارو، برشلونة. نقدم خدمات دقيقة وذات جودة عالية للأفراد والشركات، ونهتم بالتفاصيل الصغيرة لنضمن رضا العملاء.</p>
+</section>
+
+<section id="services" class="services">
+  <article class="service">
+    <img src="images/interior.jpg" alt="تنظيف داخلي" />
+    <h3>تنظيف داخلي وخارجي</h3>
+    <p>تنظيف شامل ومتكامل لجميع أجزاء السيارة، مع تركيز على التفاصيل لإعادة رونقها.</p>
+  </article>
+  <article class="service">
+    <img src="images/headlight.jpg" alt="تلميع المصابيح" />
+    <h3>تلميع المصابيح</h3>
+    <p>إزالة الاصفرار واسترجاع وضوح المصابيح لتحسين الرؤية والمظهر العام.</p>
+  </article>
+  <article class="service">
+    <img src="images/scratch.jpg" alt="إزالة الخدوش" />
+    <h3>إزالة الخدوش</h3>
+    <p>إزالة الخدوش السطحية لتجديد مظهر السيارة بدون الحاجة إلى دهان كامل.</p>
+  </article>
+  <article class="service">
+    <img src="images/accessories.jpg" alt="إزالة القطران والإسفلت" />
+    <h3>إزالة القطران والإسفلت</h3>
+    <p>تنظيف فعال لإزالة القطران والبقع العنيدة من هيكل السيارة للحفاظ على الطلاء الأصلي.</p>
+  </article>
+</section>
+
+<section id="accessories" class="accessories">
+  <h2>🧰 أكسسوارات سيارات ثلاثية الأبعاد</h2>
+  <div class="services">
+    <div class="item">
+      <img src="images/accessory-3d-1.jpg" alt="حامل هاتف 3D" />
+      <p>حامل هاتف مصمم بالطباعة ثلاثية الأبعاد لتثبيت آمن أثناء القيادة.</p>
+    </div>
+    <div class="item">
+      <img src="images/accessory-3d-2.jpg" alt="منظم أكواب 3D" />
+      <p>منظم للأكواب والمساحة الداخلية، تصميم عملي وأنيق يتناسب مع جميع السيارات.</p>
+    </div>
+    <div class="item">
+      <img src="images/accessory-3d-3.jpg" alt="مساعد تثبيت الحقائب" />
+      <p>أداة صغيرة تمنع تحرك الأكياس داخل السيارة وتحافظ على النظام.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>تواصل معنا</h2>
+  <a href="https://wa.me/34XXXXXXXXX" target="_blank">راسلنا على واتساب</a>
+  <p>📧 البريد الإلكتروني: <a href="mailto:mbomadian23@gmail.com">mbomadian23@gmail.com</a></p>
+  <p>📍 الموقع: ماتارو، برشلونة</p>
 </section>
 
 <footer>
