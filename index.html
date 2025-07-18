@@ -1,186 +1,328 @@
 <!DOCTYPE html>
-<html lang="ca" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RoboCarLab - Serveis Professionals d'Automòbils</title>
+  <title>مساعد الذكاء الاصطناعي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    nav {
-      background: #022c6f;
-      padding: 10px 0;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: #ffdd00;
-    }
-    header {
-      background: #004aad;
-      color: white;
+      background-color: #282c34;
+      color: #e0e6f1;
       padding: 20px;
-      text-align: center;
+      direction: rtl; /* لضمان دعم اللغة العربية */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
+    h1 {
+        color: #61dafb;
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
-    section {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .about, .contact, .accessories {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px;
-      text-align: center;
-    }
-    .services {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-    .service {
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      padding: 40px;
-      color: white;
-      box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.45);
-    }
-    .service h3 {
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-    }
-    .service p {
-      font-size: 1rem;
-    }
-    .item img {
+    #chatbox {
+      flex-grow: 1;
       width: 100%;
-      border-radius: 8px;
+      max-height: calc(100vh - 200px); /* حجم صندوق الدردشة */
+      overflow-y: auto; /* لتمكين التمرير عند امتلاء الصندوق */
+      border: 1px solid #4a4f59;
+      padding: 15px;
       margin-bottom: 15px;
-    }
-    .item {
-      background: white;
+      background: #3a3f4a;
+      direction: rtl; /* اتجاه النص من اليمين لليسار */
+      text-align: right; /* محاذاة النص لليمين */
       border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column-reverse; /* لعرض الرسائل الأحدث في الأسفل */
     }
-    .item:hover {
-      transform: translateY(-4px);
+    #chatbox p {
+        margin: 8px 0;
+        line-height: 1.5;
+        padding: 5px 10px;
+        border-radius: 5px;
+        max-width: 85%;
+        word-wrap: break-word; /* لكسر الكلمات الطويلة */
     }
-    .contact a {
-      display: inline-block;
-      margin: 10px 15px;
-      padding: 12px 25px;
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
+    #chatbox p strong {
+        font-weight: bold;
+    }
+    #chatbox p strong:contains("أنت") { /* لون لاسم المستخدم */
+        color: #98fb98;
+    }
+    #chatbox p strong:contains("الذكاء الاصطناعي") { /* لون لاسم البوت */
+        color: #88B04B;
+    }
+    #chatbox p:has(strong:contains("أنت")) { /* خلفية لرسائل المستخدم */
+        background-color: #555c6e;
+        align-self: flex-end; /* لتعويم رسائل المستخدم لليمين */
+        border-bottom-left-radius: 0;
+    }
+    #chatbox p:has(strong:contains("الذكاء الاصطناعي")) { /* خلفية لرسائل البوت */
+        background-color: #4a4f59;
+        align-self: flex-start; /* لتعويم رسائل البوت لليسار */
+        border-bottom-right-radius: 0;
+    }
+
+    .input-controls {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* محاذاة عناصر الإدخال لليمين */
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      max-width: calc(100% - 250px); /* عرض حقل الإدخال */
+      padding: 12px;
+      border: 1px solid #5a5f6a;
+      border-radius: 5px;
+      background-color: #4a4f59;
+      color: #e0e6f1;
+      direction: rtl; /* اتجاه النص من اليمين لليسار */
+      text-align: right; /* محاذاة النص لليمين */
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+        border-color: #61dafb;
+    }
+    button {
+      padding: 12px 20px;
+      cursor: pointer;
+      background-color: #61dafb;
+      color: #282c34;
+      border: none;
+      border-radius: 5px;
       font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    .contact a:hover {
-      background: #128C7E;
+    button:hover {
+      background-color: #21a1f1;
+      transform: translateY(-2px);
     }
-    footer {
-      background: #222;
-      color: #eee;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    @media (max-width: 700px) {
-      header h1 {
-        font-size: 1.4rem;
-      }
-      .service {
-        padding: 25px;
-      }
+
+    /* استجابة لـ شاشات الجوال */
+    @media (max-width: 768px) {
+        input[type="text"] {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+        .input-controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        button {
+            width: 100%;
+        }
     }
   </style>
 </head>
 <body>
-
-<nav>
-  <a href="#about">Qui Som</a>
-  <a href="#services">Serveis</a>
-  <a href="#accessories">Accessoris</a>
-  <a href="#contact">Contacte</a>
-</nav>
-
-<header>
-  <h1>RoboCarLab - Serveis Professionals d'Automòbils</h1>
-</header>
-
-<section id="about" class="about">
-  <h2>Qui Som</h2>
-  <p>Som un equip especialitzat en la cura de vehicles a Mataró, Barcelona. Oferim serveis precisos i d’alta qualitat per a particulars i empreses, amb una atenció acurada als detalls per garantir la satisfacció dels clients.</p>
-</section>
-
-<section id="services" class="services">
-  <article class="service" style="background-image: url('images/interior-cleaning-bg.jpg');">
-    <h3>Neteja Interior i Exterior</h3>
-    <p>Realitzem neteja profunda de seients, terra i superfícies internes, a més d'un rentat exterior complet que inclou la carrosseria i les rodes per obtenir un acabat brillant.</p>
-  </article>
-
-  <article class="service" style="background-image: url('images/headlight-polish-bg.jpg');">
-    <h3>Poliment de Fars</h3>
-    <p>Utilitzem eines especialitzades per eliminar el groguenc i restaurar la claredat dels fars davanters, millorant la visibilitat nocturna i donant un aspecte modern al vehicle.</p>
-  </article>
-
-  <article class="service" style="background-image: url('images/scratch-removal-bg.jpg');">
-    <h3>Eliminació de Rascades</h3>
-    <p>Eliminem les rascades superficials amb productes professionals i màquines polidores avançades per renovar l’aparença del vehicle sense pintar de nou.</p>
-  </article>
-
-  <article class="service" style="background-image: url('images/tar-cleaning-bg.jpg');">
-    <h3>Neteges de Quitrà i Asfalt</h3>
-    <p>Eliminem taques difícils com quitrà i olis amb netejadors efectius i segurs per a la pintura, preservant el color original del cotxe.</p>
-  </article>
-</section>
-
-<section id="accessories" class="accessories">
-  <h2>🧰 Accessoris 3D per a Vehicles</h2>
-  <div class="services">
-    <div class="item">
-      <img src="images/accessory-3d-1.jpg" alt="Suport de telèfon 3D" />
-      <p>Suport de telèfon imprès en 3D per a una fixació segura durant la conducció.</p>
-    </div>
-    <div class="item">
-      <img src="images/accessory-3d-2.jpg" alt="Organitzador de gots 3D" />
-      <p>Organitzador pràctic i elegant que optimitza l'espai interior del cotxe.</p>
-    </div>
-    <div class="item">
-      <img src="images/accessory-3d-3.jpg" alt="Fixador de bosses" />
-      <p>Petit dispositiu que evita el moviment de les bosses dins el vehicle.</p>
-    </div>
+  <h1>🤖 مساعد الذكاء الاصطناعي</h1>
+  <div id="chatbox"></div>
+  <div class="input-controls">
+    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+    <button onclick="send()">إرسال</button>
+    <button onclick="startVoiceInput()">🎤 التحدث</button>
+    <button onclick="stopVoiceInput()" id="stopVoiceBtn" style="display:none;">⏹️ إيقاف التحدث</button>
+    <button onclick="clearChat()">🗑️ مسح المحادثة</button>
   </div>
-</section>
 
-<section id="contact" class="contact">
-  <h2>Contacte</h2>
-  <a href="https://wa.me/34XXXXXXXXX" target="_blank">Parla amb nosaltres per WhatsApp</a>
-  <p>📧 Correu electrònic: <a href="mailto:mbomadian23@gmail.com">mbomadian23@gmail.com</a></p>
-  <p>📍 Ubicació: Mataró, Barcelona</p>
-</section>
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    let currentContext = null; // للحفاظ على سياق المحادثة (يمكن توسيعه)
+    let userName = localStorage.getItem("assistantUserName"); // لتخزين اسم المستخدم محليًا
 
-<footer>
-  <p>© 2025 RoboCarLab. Tots els drets reservats.</p>
-</footer>
+    // دالة لإضافة الرسائل إلى صندوق الدردشة
+    function appendMessage(senderName, textContent) {
+      const messageElement = document.createElement('p');
+      messageElement.innerHTML = `<strong>${senderName}:</strong> ${textContent}`;
+      chatbox.prepend(messageElement); // إضافة الرسالة في الأعلى
+      chatbox.scrollTop = chatbox.scrollHeight; // التمرير لأسفل (لن يعمل مع prepend)
+      // إذا كنت تستخدم appendChild، فسيتم التمرير تلقائيًا للرسائل الجديدة.
+      // مع prepend، ستحتاج إلى التمرير يدوياً للأعلى إذا كانت المحادثة طويلة جداً.
 
+      if (senderName === "🤖 الذكاء الاصطناعي") {
+          speakResponse(textContent); // تشغيل الصوت لردود الذكاء الاصطناعي
+      }
+    }
+
+    // دالة لمسح المحادثة
+    function clearChat() {
+      chatbox.innerHTML = '';
+      currentContext = null;
+      appendMessage("🤖 الذكاء الاصطناعي", "تم مسح المحادثة. كيف يمكنني مساعدتك الآن؟");
+    }
+
+    // دالة لتخزين اسم المستخدم
+    function setUserName(name) {
+      userName = name;
+      localStorage.setItem("assistantUserName", name);
+    }
+
+    // --- دالة إرسال رسالة المستخدم إلى الخادم ---
+    async function send() {
+      const inputField = document.getElementById("userInput");
+      const message = inputField.value.trim();
+      if (!message) return; // لا تفعل شيئًا إذا كانت الرسالة فارغة
+
+      appendMessage("🧑‍💻 أنت", message); // عرض رسالة المستخدم في الدردشة
+      inputField.value = ""; // مسح حقل الإدخال
+
+      try {
+        // إرسال طلب POST إلى الخادم الخلفي
+        const response = await fetch('http://localhost:3000/ask-ai', { // تأكد أن هذا هو عنوان الخادم الصحيح
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: message }) // إرسال استعلام المستخدم كـ JSON
+        });
+
+        // التحقق من حالة الاستجابة
+        if (!response.ok) {
+            // إذا كان هناك خطأ في الخادم (مثل 404، 500)، أظهر رسالة خطأ
+            appendMessage("🤖 الذكاء الاصطناعي", `عذراً، حدث خطأ في الاتصال بخادمي (${response.status} ${response.statusText}). يرجى التأكد من تشغيله.`);
+            console.error("Server error:", response.status, response.statusText);
+            return;
+        }
+
+        const data = await response.json(); // تحليل استجابة الخادم كـ JSON
+        const aiResponse = data.response; // الحصول على الرد من الذكاء الاصطناعي
+
+        if (aiResponse) {
+            appendMessage("🤖 الذكاء الاصطناعي", aiResponse); // عرض رد الذكاء الاصطناعي
+        } else {
+            console.error("AI service returned an empty or null response.");
+            appendMessage("🤖 الذكاء الاصطناعي", `عذراً، لم أتلق رداً صالحاً من المساعد.`);
+        }
+      } catch (error) {
+        // التعامل مع أخطاء الشبكة (مثل عدم تشغيل الخادم)
+        console.error("Error communicating with backend server:", error);
+        appendMessage("🤖 الذكاء الاصطناعي", `عذراً، لا أستطيع الاتصال بخادمي الآن. يرجى التأكد من تشغيله (node server.js).`);
+      }
+    }
+
+    // --- Speech Recognition (الإدخال الصوتي) ---
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isListening = false;
+    const stopVoiceBtn = document.getElementById("stopVoiceBtn");
+
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'ar-EG'; // لغة التعرف على الكلام (العربية المصرية)
+        recognition.interimResults = false; // لا تعرض النتائج المؤقتة
+        recognition.maxAlternatives = 1; // أفضل بديل واحد
+
+        recognition.onstart = () => {
+            isListening = true;
+            appendMessage("🤖 الذكاء الاصطناعي", "أستمع الآن... قل شيئاً.");
+            stopVoiceBtn.style.display = 'inline-block'; // إظهار زر الإيقاف
+        };
+
+        recognition.onresult = (event) => {
+            const speechResult = event.results[0][0].transcript;
+            document.getElementById("userInput").value = speechResult; // وضع النص المعترف به في حقل الإدخال
+            send(); // إرسال النص المعترف به
+            stopVoiceInput(); // إيقاف التعرف على الكلام
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech Recognition Error:", event.error);
+            appendMessage("🤖 الذكاء الاصطناعي", "حدث خطأ في التعرف على الكلام. يرجى المحاولة مرة أخرى.");
+            isListening = false;
+            stopVoiceBtn.style.display = 'none';
+        };
+
+        recognition.onend = () => {
+            if (isListening) { // إذا توقف الاستماع ولم يتم إيقافه يدويا
+                appendMessage("🤖 الذكاء الاصطناعي", "توقف الاستماع.");
+            }
+            isListening = false;
+            stopVoiceBtn.style.display = 'none';
+        };
+
+    } else {
+        console.warn("Speech Recognition not supported in this browser.");
+        // إخفاء أزرار الصوت إذا لم يكن المدخل الصوتي مدعوماً
+        document.querySelector('button[onclick="startVoiceInput()"]').style.display = 'none';
+        document.getElementById("stopVoiceBtn").style.display = 'none';
+    }
+
+    function startVoiceInput() {
+        if (recognition && !isListening) {
+            recognition.start();
+        } else if (isListening) {
+            appendMessage("🤖 الذكاء الاصطناعي", "أنا أستمع بالفعل.");
+        } else {
+            appendMessage("🤖 الذكاء الاصطناعي", "التعرف على الكلام غير مدعوم في متصفحك.");
+        }
+    }
+
+    function stopVoiceInput() {
+        if (recognition && isListening) {
+            recognition.stop();
+            isListening = false;
+        }
+    }
+
+    // --- Speech Synthesis (إخراج الصوت - قراءة الردود) ---
+    const SpeechSynthesis = window.speechSynthesis;
+    let speakingQueue = []; // قائمة انتظار للرسائل الصوتية
+    let isSpeaking = false;
+
+    function speakResponse(textToSpeak) {
+        if (!SpeechSynthesis || textToSpeak.trim() === "") {
+            return;
+        }
+
+        // إلغاء أي كلام حالي إذا كان هناك كلام جديد
+        if (isSpeaking && speakingQueue.length === 0) {
+             SpeechSynthesis.cancel();
+        }
+
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = 'ar-EG'; // لغة النطق (العربية المصرية)
+        utterance.rate = 0.95; // سرعة النطق
+        utterance.pitch = 1; // حدة الصوت
+
+        utterance.onend = () => {
+            speakingQueue.shift(); // إزالة الرسالة المنطوقة من القائمة
+            if (speakingQueue.length > 0) {
+                SpeechSynthesis.speak(speakingQueue[0]); // نطق الرسالة التالية في القائمة
+            } else {
+                isSpeaking = false; // لا توجد رسائل أخرى، توقف النطق
+            }
+        };
+
+        utterance.onerror = (event) => {
+            console.error('SpeechSynthesisUtterance.onerror', event);
+            isSpeaking = false;
+            speakingQueue = []; // مسح قائمة الانتظار عند الخطأ
+        };
+
+        speakingQueue.push(utterance); // إضافة الرسالة إلى قائمة الانتظار
+        if (!isSpeaking) {
+            isSpeaking = true;
+            SpeechSynthesis.speak(speakingQueue[0]); // بدء النطق إذا لم يكن هناك كلام حالي
+        }
+    }
+
+    // رسالة ترحيب أولية عند تحميل الصفحة
+    window.onload = () => {
+        if (userName) {
+            appendMessage("🤖 الذكاء الاصطناعي", `مرحباً بك مجدداً يا ${userName}! أنا مساعدك الذكي المتصل بالإنترنت. كيف يمكنني مساعدتك اليوم؟`);
+        } else {
+            appendMessage("🤖 الذكاء الاصطناعي", "أهلاً بك! أنا مساعدك الذكي المتصل بالإنترنت. ما اسمك؟");
+        }
+        appendMessage("🤖 الذكاء الاصطناعي", "للبدء، تأكد من تشغيل الخادم الخلفي في نافذة Terminal/Command Prompt (مثال: node server.js في مجلد الخادم).");
+    };
+  </script>
 </body>
 </html>
